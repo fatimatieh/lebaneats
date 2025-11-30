@@ -61,27 +61,22 @@ Phase 1 focuses on the complete front-end UI, routing system, and dynamic recipe
 ###Screenshots of UI:
 
  Home Page  :
-![Home Page Screenshot](./public/screenshots/home.png)
+![Home Page Screenshot](./public/images/screenshots/home-page.png)
 
 Recipes Page :  
-![Recipes Screenshot](./public/screenshots/recipes.png)
+![Recipes Screenshot](./public/images/screenshots/recipes-page.png)
 
 Meal Planner : 
-![Meal Planner Screenshot](./public/screenshots/mealplanner.png)
+![Meal Planner Screenshot](./public/images/screenshots/mealplanner-page.png)
 
 Shopping List:
-![Orders Screenshot](./public/screenshots/orders.png)
-
-*(Create a `/public/screenshots/` folder and add your images — optional but recommended.)*
+![Orders Screenshot](./public/images/screenshots/shoppinglist-page.png)
 
 ---
 
-## 🌐 **Live Deployment**
-*(Add this after deploying)*
+###Live Deployment:
 
-👉 **Live URL:** https://YOUR-SITE-NAME.netlify.app  
-(or GitHub Pages / Vercel)
-
+ **Live URL:** https://lebaneats.netlify.app/
 ---
 
  ###Contributors : **Fatima Atieh** / **Ghiwa Ayash**
