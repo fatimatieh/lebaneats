@@ -82,4 +82,4 @@ Shopping List:
  ###Contributors : **Fatima Atieh** / **Ghiwa Ayash**
 
 ## 📄 License
-This project is developed for educational purposes under the Web Programming & Technologies course.
+This project is developed for educational purpos
