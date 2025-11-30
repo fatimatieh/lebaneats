@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+###Lebaneats – Lebanese Recipe Web App:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Lebaneats is a modern, responsive ReactJS web application designed to showcase authentic Lebanese dishes and help users plan their weekly meals.  
 
-## Available Scripts
+###Description:
 
-In the project directory, you can run:
+Lebaneats provides users with an elegant interface to browse Lebanese recipes, view ingredients and steps, plan meals for the week, generate shopping lists, and explore additional features. The application is fully responsive, visually cohesive, and includes page animations and a custom splash screen.
 
-### `npm start`
+Phase 1 focuses on the complete front-end UI, routing system, and dynamic recipe page.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+###Features:
+1-Home Page
+- Animated splash screen on first load  
+- Clean welcome landing page  
+- Buttons for quick navigation  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2-Recipes Page
+- All recipes displayed dynamically from `recipeData.js`  
+- Search & filter system  
+- Individual recipe pages with:
+  - Ingredients  
+  - Step-by-step instructions  
+  - Cooking timer and step counter  
 
-### `npm test`
+3-Meal Planner
+- Weekly meal planner (Breakfast, Lunch, Dinner)  
+- Ability to assign recipes to days  
+- Generate shopping list from planned meals  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4-Orders / Shopping List
+- All selected ingredients grouped in a single shopping list page  
 
-### `npm run build`
+5-Favorites Page
+- Add/remove recipes from favorites  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6-Static Pages
+- About page  
+- Contact page  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+###UI Enhancements:
+- Responsive layout for mobile & desktop  
+- Page transition animations using Framer Motion  
+- Custom splash screen with animated logo  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###Technologies Used:
 
-### `npm run eject`
+--> Frontend:
+- ReactJS (functional components + hooks)
+- React Router DOM
+- Framer Motion (page animations)
+- CSS3 (custom styling)
+- JavaScript (ES6+)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+--> Tools:
+- Node.js
+- Git & GitHub Version Control
+- Netlify / Vercel / GitHub Pages (Deployment)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+###Screenshots of UI:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+ Home Page  :
+![Home Page Screenshot](./public/screenshots/home.png)
 
-## Learn More
+Recipes Page :  
+![Recipes Screenshot](./public/screenshots/recipes.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Meal Planner : 
+![Meal Planner Screenshot](./public/screenshots/mealplanner.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Shopping List:
+![Orders Screenshot](./public/screenshots/orders.png)
 
-### Code Splitting
+*(Create a `/public/screenshots/` folder and add your images — optional but recommended.)*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🌐 **Live Deployment**
+*(Add this after deploying)*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+👉 **Live URL:** https://YOUR-SITE-NAME.netlify.app  
+(or GitHub Pages / Vercel)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+ ###Contributors : **Fatima Atieh** / **Ghiwa Ayash**
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 License
+This project is developed for educational purposes under the Web Programming & Technologies course.
