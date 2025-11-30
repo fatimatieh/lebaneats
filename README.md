@@ -81,5 +81,6 @@ Shopping List:
 
  ###Contributors : **Fatima Atieh** / **Ghiwa Ayash**
 
+---
 ## 📄 License
-This project is developed for educational purpos
+This project is developed for the CSCI426 web course
