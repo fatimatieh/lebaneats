@@ -1,16 +1,16 @@
-##LebanEats – Lebanese Recipe Web Application
+## LebanEats – Lebanese Recipe Web Application
 
 LebanEats is a modern, responsive web application designed to showcase authentic Lebanese cuisine and help users plan meals efficiently. The application provides an intuitive interface for discovering recipes, organizing weekly meals, managing ingredients, and creating shopping lists.
 
 The project focuses on usability, clean design, and practical real-life functionality while maintaining a cohesive visual identity and smooth user experience.
 
-##Description:
+## Description:
 
 LebanEats allows users to explore a curated collection of Lebanese recipes, view detailed cooking instructions, manage their pantry, plan meals for the week, and generate shopping lists based on selected recipes.
 
 The application is designed to be fully responsive and user-friendly, with smooth page transitions, organized navigation, and visually consistent layouts. Core features work seamlessly for both guest users and authenticated users.
 
-##Features:
+## Features:
 
 1- Home Page
 ~ Animated splash screen on first load
@@ -57,7 +57,7 @@ Almost available recipes (missing few ingredients)
 ~ Contact page with feedback form
 ~ Clean navigation back to main sections
 
-##UI & UX Enhancements:
+## UI & UX Enhancements:
 
 Fully responsive design (desktop & mobile)
 Page transition animations using Framer Motion
@@ -65,7 +65,7 @@ Custom splash screen animation
 Consistent color palette and typography
 Clear button hierarchy and spacing
 
-##Technologies Used:
+## Technologies Used:
 
 -Frontend:
 ReactJS (Functional Components & Hooks)
@@ -87,7 +87,7 @@ Node.js
 npm
 Environment variables using .env
 
-🖼️ Screenshots
+## Screenshots:
 
 Home Page – Welcome screen and navigation
 
@@ -101,16 +101,16 @@ Orders / Shopping List – Generated ingredient list
 
 (Screenshots available in the public/ folder)
 
-🌐 Live Deployment
+## Live Deployment:
 
-🔗 Live URL:
+## Live URL:
 https://lebaneats.netlify.app/
 
-👩‍💻 Contributors
+## Contributors:
 
 Fatima Atieh
 Ghiwa Ayash
 
-📄 License
+## License:
 
 This project was developed as part of the CSCI426 Web Programming course and is intended for educational purposes.
