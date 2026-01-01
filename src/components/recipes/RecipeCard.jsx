@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function RecipeCard({ recipe, isFavorite, toggleFavorite }) {
+  const token = localStorage.getItem("token");
+  const [busy, setBusy] = useState(false);
+
+  const onFavClick = async () => {
+    if (!token) {
+      alert("Please login first to use favorites.");
+      return;
+    }
+    if (busy) return;
+
+    setBusy(true);
+    try {
+      await toggleFavorite(recipe.id); // App.js handles backend + state update
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
     <div className="card">
       {recipe.image && (
@@ -13,11 +31,12 @@ function RecipeCard({ recipe, isFavorite, toggleFavorite }) {
               width: "100%",
               height: "160px",
               objectFit: "cover",
-              borderRadius: "0.9rem"
+              borderRadius: "0.9rem",
             }}
           />
         </div>
       )}
+
       <h3 style={{ marginBottom: "0.25rem" }}>{recipe.name}</h3>
       <p className="page-subtitle" style={{ marginBottom: "0.5rem" }}>
         {recipe.shortDescription}
@@ -30,10 +49,13 @@ function RecipeCard({ recipe, isFavorite, toggleFavorite }) {
         <Link to={`/recipes/${recipe.id}`} className="secondary-btn">
           View Recipe
         </Link>
+
         <button
           type="button"
           className="secondary-btn"
-          onClick={() => toggleFavorite(recipe.id)}
+          onClick={onFavClick}
+          disabled={!token || busy}
+          title={!token ? "Login required" : ""}
         >
           {isFavorite ? "★ Favorited" : "☆ Favorite"}
         </button>

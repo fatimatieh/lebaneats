@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function FavoritesPage({ recipes, favorites, toggleFavorite }) {
+function FavoritesPage({ recipes, favorites = [], toggleFavorite }) {
+  const token = localStorage.getItem("token");
   const favoriteRecipes = recipes.filter((r) => favorites.includes(r.id));
 
   return (
@@ -12,10 +13,15 @@ function FavoritesPage({ recipes, favorites, toggleFavorite }) {
           Your favorite Lebanese dishes. Save the recipes you cook the most.
         </p>
 
-        {favoriteRecipes.length === 0 && (
+        {!token && (
           <p className="page-subtitle">
-            You have no favorites yet. Go to the recipes page and mark some
-            recipes as favorites.
+            Please login to view and manage your favorites.
+          </p>
+        )}
+
+        {token && favoriteRecipes.length === 0 && (
+          <p className="page-subtitle">
+            You have no favorites yet. Go to the recipes page and mark some recipes as favorites.
           </p>
         )}
 
@@ -31,7 +37,7 @@ function FavoritesPage({ recipes, favorites, toggleFavorite }) {
                       width: "100%",
                       height: "150px",
                       objectFit: "cover",
-                      borderRadius: "0.8rem"
+                      borderRadius: "0.8rem",
                     }}
                   />
                 </div>
@@ -41,17 +47,17 @@ function FavoritesPage({ recipes, favorites, toggleFavorite }) {
               <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>
                 {recipe.category} • {recipe.cookTime} min
               </p>
+
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <Link
-                  to={`/recipes/${recipe.id}`}
-                  className="secondary-btn"
-                >
+                <Link to={`/recipes/${recipe.id}`} className="secondary-btn">
                   View
                 </Link>
                 <button
                   type="button"
                   className="secondary-btn"
                   onClick={() => toggleFavorite(recipe.id)}
+                  disabled={!token}
+                  title={!token ? "Login required" : ""}
                 >
                   Remove
                 </button>
@@ -60,14 +66,7 @@ function FavoritesPage({ recipes, favorites, toggleFavorite }) {
           ))}
         </div>
 
-        <div
-          style={{
-            marginTop: "1.4rem",
-            display: "flex",
-            gap: "0.6rem",
-            flexWrap: "wrap"
-          }}
-        >
+        <div style={{ marginTop: "1.4rem", display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
           <Link to="/" className="secondary-btn">
             ← Back to home
           </Link>

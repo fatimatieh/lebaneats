@@ -1,19 +1,20 @@
-// src/pages/RecipeDetailsPage.jsx
 import React, { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import IngredientList from "../components/recipes/IngredientList";
 import StepByStepCookMode from "../components/recipes/StepByStepCookMode";
 
-function RecipeDetailsPage({
-  recipes,
-  isFavorite,
-  toggleFavorite,
-  addOrderItems
-}) {
+function RecipeDetailsPage({ recipes, isFavorite, toggleFavorite, addOrderItems }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const recipe = recipes.find((r) => r.id === id);
+
   const [showCookMode, setShowCookMode] = useState(false);
+  const [favBusy, setFavBusy] = useState(false);
+
+  // ✅ new: store selected ingredients from IngredientList
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+
+  const token = localStorage.getItem("token");
 
   if (!recipe) {
     return (
@@ -28,16 +29,46 @@ function RecipeDetailsPage({
     );
   }
 
-  const handleOrderAll = () => {
-    if (recipe.ingredients && recipe.ingredients.length > 0 && addOrderItems) {
-      const items = recipe.ingredients.map((ing) => ({
-        name: ing.name,
-        quantity: ing.quantity,
-        fromRecipeName: recipe.name
-      }));
-      addOrderItems(items);
+  // ✅ Order only selected. If none selected => ask user (simple + fast UX)
+  const handleOrderSelected = () => {
+    if (!addOrderItems) {
+      navigate("/orders");
+      return;
     }
+
+    const chosen =
+      selectedIngredients && selectedIngredients.length > 0
+        ? selectedIngredients
+        : [];
+
+    if (chosen.length === 0) {
+      alert("Please select at least one ingredient (or click Select all).");
+      return;
+    }
+
+    const items = chosen.map((ing) => ({
+      name: ing.name,
+      quantity: ing.quantity,
+      fromRecipeName: recipe.name,
+    }));
+
+    addOrderItems(items);
     navigate("/orders");
+  };
+
+  const handleToggleFav = async () => {
+    if (!token) {
+      alert("Please login first to use favorites.");
+      return;
+    }
+    if (favBusy) return;
+
+    setFavBusy(true);
+    try {
+      await toggleFavorite(recipe.id);
+    } finally {
+      setFavBusy(false);
+    }
   };
 
   return (
@@ -52,25 +83,25 @@ function RecipeDetailsPage({
             display: "grid",
             gridTemplateColumns: "minmax(0, 2fr) minmax(0, 1.5fr)",
             gap: "1.3rem",
-            marginBottom: "1.5rem"
+            marginBottom: "1.5rem",
           }}
         >
           <div>
             {recipe.image && (
-  <div style={{ marginBottom: "0.8rem" }}>
-    <img
-      src={recipe.image}
-      alt={recipe.name}
-      style={{
-        width: "70%",
-        aspectRatio: "16/ 9",   // <- makes it a nice rectangle/cube
-        objectFit: "cover",
-        borderRadius: "0.9rem",
-        display: "block"
-      }}
-    />
-  </div>
-)}
+              <div style={{ marginBottom: "0.8rem" }}>
+                <img
+                  src={recipe.image}
+                  alt={recipe.name}
+                  style={{
+                    width: "70%",
+                    aspectRatio: "16/9",
+                    objectFit: "cover",
+                    borderRadius: "0.9rem",
+                    display: "block",
+                  }}
+                />
+              </div>
+            )}
 
             <p style={{ fontSize: "0.9rem", marginBottom: "0.3rem" }}>
               Category: <strong>{recipe.category}</strong>
@@ -91,26 +122,43 @@ function RecipeDetailsPage({
               >
                 Start cooking mode
               </button>
+
+              {/* ✅ now orders only selected */}
               <button
                 type="button"
                 className="secondary-btn"
-                onClick={handleOrderAll}
+                onClick={handleOrderSelected}
+                title="Select ingredients then order"
               >
-                Order ingredients
+                Order selected ingredients
               </button>
+
               <button
                 type="button"
                 className="secondary-btn"
-                onClick={() => toggleFavorite(recipe.id)}
+                onClick={handleToggleFav}
+                disabled={favBusy}
+                title={!token ? "Login required" : ""}
               >
                 {isFavorite(recipe.id) ? "★ Favorited" : "☆ Add to favorites"}
               </button>
             </div>
+
+            {!token && (
+              <p className="page-subtitle" style={{ marginTop: "0.7rem" }}>
+                Login to save favorites.
+              </p>
+            )}
           </div>
 
           <div>
             <h3 style={{ marginBottom: "0.5rem" }}>Ingredients</h3>
-            <IngredientList ingredients={recipe.ingredients} />
+
+            {/* ✅ pass callback so IngredientList tells us what's selected */}
+            <IngredientList
+              ingredients={recipe.ingredients}
+              onSelectionChange={setSelectedIngredients}
+            />
           </div>
         </div>
 
@@ -137,9 +185,8 @@ function RecipeDetailsPage({
             className="secondary-btn"
             disabled={!recipe.videoUrl}
             onClick={() => {
-              if (recipe.videoUrl) {
+              if (recipe.videoUrl)
                 window.open(recipe.videoUrl, "_blank", "noopener,noreferrer");
-              }
             }}
           >
             {recipe.videoUrl ? "Watch on YouTube" : "Video coming soon"}
@@ -151,7 +198,7 @@ function RecipeDetailsPage({
             marginTop: "1.4rem",
             display: "flex",
             gap: "0.6rem",
-            flexWrap: "wrap"
+            flexWrap: "wrap",
           }}
         >
           <Link to="/recipes" className="secondary-btn">
@@ -164,13 +211,13 @@ function RecipeDetailsPage({
             Go to orders / shopping list
           </Link>
         </div>
-{showCookMode && (
-  <StepByStepCookMode
-    steps={recipe.steps}
-    onClose={() => setShowCookMode(false)}
-  />
-)}
 
+        {showCookMode && (
+          <StepByStepCookMode
+            steps={recipe.steps}
+            onClose={() => setShowCookMode(false)}
+          />
+        )}
       </div>
     </div>
   );

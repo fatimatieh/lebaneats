@@ -8,6 +8,8 @@ function MealPlannerPage({
   setMealPlan,
   generateShoppingListFromMealPlan
 }) {
+  const token = localStorage.getItem("token");
+
   return (
     <div className="page-shell page--mealplanner">
       <div className="page-shell-inner">
@@ -16,6 +18,15 @@ function MealPlannerPage({
           Plan Lebanese meals for each day of the week and generate a shopping
           list from your plan.
         </p>
+
+        {/* ✅ Guest note (Option A) */}
+        {!token && (
+          <div className="card" style={{ marginBottom: "1rem" }}>
+            <p className="page-subtitle" style={{ marginBottom: 0 }}>
+              You’re planning as a guest. Log in to save your meal plan to your account.
+            </p>
+          </div>
+        )}
 
         <div style={{ marginBottom: "1rem" }}>
           <button

@@ -8,14 +8,16 @@ const DAYS = [
   "Thursday",
   "Friday",
   "Saturday",
-  "Sunday"
+  "Sunday",
 ];
+
+const SLOTS = ["breakfast", "lunch", "dinner"];
 
 function MealPlannerGrid({ recipes, mealPlan, setMealPlan }) {
   const updateDayPlan = (day, updatedDayPlan) => {
     setMealPlan((prev) => ({
       ...prev,
-      [day]: updatedDayPlan
+      [day]: updatedDayPlan,
     }));
   };
 
@@ -30,7 +32,40 @@ function MealPlannerGrid({ recipes, mealPlan, setMealPlan }) {
     return count;
   })();
 
-  const clearWeek = () => setMealPlan({});
+  const clearWeek = async () => {
+    // 1) Clear UI
+    setMealPlan({});
+
+    // 2) Clear DB if logged in
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      for (const day of DAYS) {
+        for (const slot of SLOTS) {
+          const res = await fetch("http://localhost:5000/api/meal-plans", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              day_of_week: day,
+              meal_type: slot,
+              recipe_id: null,
+            }),
+          });
+
+          const data = await res.json();
+          if (!res.ok || !data.ok) {
+            throw new Error(data.message || "Failed to clear week in DB");
+          }
+        }
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
   return (
     <div>
@@ -41,17 +76,13 @@ function MealPlannerGrid({ recipes, mealPlan, setMealPlan }) {
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
-          gap: "0.5rem"
+          gap: "0.5rem",
         }}
       >
         <p className="page-subtitle" style={{ marginBottom: 0 }}>
           Total planned meals: <strong>{totalMeals}</strong>
         </p>
-        <button
-          type="button"
-          className="secondary-btn"
-          onClick={clearWeek}
-        >
+        <button type="button" className="secondary-btn" onClick={clearWeek}>
           Clear whole week
         </button>
       </div>
@@ -62,7 +93,7 @@ function MealPlannerGrid({ recipes, mealPlan, setMealPlan }) {
             key={day}
             day={day}
             recipes={recipes}
-            dayPlan={mealPlan[day]}
+            dayPlan={mealPlan?.[day]}
             onUpdateDay={updateDayPlan}
           />
         ))}

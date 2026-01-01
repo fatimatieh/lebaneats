@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import RecipeFilters from "../components/recipes/RecipeFilters";
 import RecipeList from "../components/recipes/RecipeList";
 
-function RecipesPage({ recipes, favorites, toggleFavorite }) {
+function RecipesPage({ recipes, favorites = [], toggleFavorite }) {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [maxTime, setMaxTime] = useState("");
@@ -15,10 +15,7 @@ function RecipesPage({ recipes, favorites, toggleFavorite }) {
         if (category && r.category !== category) return false;
         if (difficulty && r.difficulty !== difficulty) return false;
         if (maxTime && r.cookTime > Number(maxTime)) return false;
-        if (
-          search &&
-          !r.name.toLowerCase().includes(search.toLowerCase().trim())
-        ) {
+        if (search && !r.name.toLowerCase().includes(search.toLowerCase().trim())) {
           return false;
         }
         return true;
@@ -35,13 +32,12 @@ function RecipesPage({ recipes, favorites, toggleFavorite }) {
           difficulty, and cooking time.
         </p>
 
-      
         <div
           style={{
             marginBottom: "1rem",
             display: "flex",
             gap: "0.6rem",
-            flexWrap: "wrap"
+            flexWrap: "wrap",
           }}
         >
           <Link to="/" className="secondary-btn">
@@ -66,11 +62,7 @@ function RecipesPage({ recipes, favorites, toggleFavorite }) {
           setSearch={setSearch}
         />
 
-        <RecipeList
-          recipes={filtered}
-          favorites={favorites}
-          toggleFavorite={toggleFavorite}
-        />
+        <RecipeList recipes={filtered} favorites={favorites} toggleFavorite={toggleFavorite} />
       </div>
     </div>
   );
