@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 function IngredientList({ ingredients = [], onSelectionChange }) {
-  // Build default checked map
+ 
   const initialChecked = useMemo(() => {
     return ingredients.reduce((acc, ing) => {
       acc[ing.name] = false;
@@ -11,7 +11,7 @@ function IngredientList({ ingredients = [], onSelectionChange }) {
 
   const [checked, setChecked] = useState(initialChecked);
 
-  // Reset when recipe changes
+  
   useEffect(() => {
     setChecked(initialChecked);
   }, [initialChecked]);
@@ -19,7 +19,7 @@ function IngredientList({ ingredients = [], onSelectionChange }) {
   const toggle = (name) =>
     setChecked((prev) => ({ ...prev, [name]: !prev[name] }));
 
-  // ✅ Select all ingredients
+  //Select all ingredients
   const selectAll = () => {
     const allChecked = {};
     ingredients.forEach((ing) => {
@@ -28,7 +28,7 @@ function IngredientList({ ingredients = [], onSelectionChange }) {
     setChecked(allChecked);
   };
 
-  // ✅ Clear all selections
+  //Clear all selections
   const clearAll = () => {
     setChecked(initialChecked);
   };
@@ -45,7 +45,7 @@ function IngredientList({ ingredients = [], onSelectionChange }) {
 
   return (
     <div>
-      {/* ✅ Select all / Clear controls */}
+     
       <div
         style={{
           display: "flex",

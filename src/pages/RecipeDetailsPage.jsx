@@ -11,7 +11,7 @@ function RecipeDetailsPage({ recipes, isFavorite, toggleFavorite, addOrderItems 
   const [showCookMode, setShowCookMode] = useState(false);
   const [favBusy, setFavBusy] = useState(false);
 
-  // ✅ new: store selected ingredients from IngredientList
+  //store selected ingredients from IngredientList
   const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   const token = localStorage.getItem("token");
@@ -29,7 +29,7 @@ function RecipeDetailsPage({ recipes, isFavorite, toggleFavorite, addOrderItems 
     );
   }
 
-  // ✅ Order only selected. If none selected => ask user (simple + fast UX)
+  //Order only selected
   const handleOrderSelected = () => {
     if (!addOrderItems) {
       navigate("/orders");
@@ -123,7 +123,7 @@ function RecipeDetailsPage({ recipes, isFavorite, toggleFavorite, addOrderItems 
                 Start cooking mode
               </button>
 
-              {/* ✅ now orders only selected */}
+              
               <button
                 type="button"
                 className="secondary-btn"
@@ -154,7 +154,7 @@ function RecipeDetailsPage({ recipes, isFavorite, toggleFavorite, addOrderItems 
           <div>
             <h3 style={{ marginBottom: "0.5rem" }}>Ingredients</h3>
 
-            {/* ✅ pass callback so IngredientList tells us what's selected */}
+            
             <IngredientList
               ingredients={recipe.ingredients}
               onSelectionChange={setSelectedIngredients}
